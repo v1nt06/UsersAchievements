@@ -1,0 +1,17 @@
+﻿@using UsersAchievements.Models
+@model List<User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>@user, Birthdate: @user.Birthdate.ToString("d"), Age: @user.Age <a href="/Users/Remove?Id=@user.Id">[x]</a></li>
+    }
+</ul>
+<form action="/Users/Add" method="get">
+    <input type="text" name="Name"/> <input type="date" name="Birthdate"/> <button type="submit">Add user</button>
+</form>

@@ -1,0 +1,17 @@
+﻿@using UsersAchievements.Models
+@model List<Achievement>
+
+@{
+    ViewBag.Title = "Achievements";
+}
+
+<h2>Achievements</h2>
+<ul>
+    @foreach (var achievement in Model)
+    {
+        <li>@achievement, Description: @achievement.Description <a href="/Achievements/Remove?Id=@achievement.Id">[x]</a></li>
+    }
+</ul>
+<form action="/Achievements/Add" method="get">
+    <input type="text" name="Title"/> <input type="text" name="Description"/> <button type="submit">Add achievement</button>
+</form>
