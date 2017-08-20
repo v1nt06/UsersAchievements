@@ -4,33 +4,47 @@ namespace UsersAchievements.Models
 {
     public sealed class User
     {
+        #region Fields
+
         private string _name;
 
+        #endregion
+
+        #region Properties
+
         public Guid Id { get; }
+
         public string Name
         {
             get => _name;
             set => _name = CheckName(value);
         }
 
-        public DateTime Birthdate { get; }
+        public DateTime Birthdate { get; private set; }
 
         public int Age => CalculateAge();
+
+        public string Photo { get; set; }
+
+        #endregion
+
+        #region Methods
 
         public User(string name, DateTime? birthdate)
         {
             Id = Guid.NewGuid();
             Name = name;
-            if (birthdate == null || birthdate > DateTime.Now)
-            {
-                throw  new ArgumentException("Birthdate should be lesser or equal current date", nameof(birthdate));
-            }
-            Birthdate = birthdate.Value;
+            Birthdate = CheckBirthdate(birthdate);
         }
 
         public override string ToString()
         {
             return Name;
+        }
+
+        public void SetBirthdate(DateTime? birthdate)
+        {
+            Birthdate = CheckBirthdate(birthdate);
         }
 
         private int CalculateAge()
@@ -48,5 +62,17 @@ namespace UsersAchievements.Models
 
             return name;
         }
+
+        private DateTime CheckBirthdate(DateTime? birthdate)
+        {
+            if (birthdate == null || birthdate > DateTime.Now)
+            {
+                throw new ArgumentException("Birthdate should be lesser or equal current date", nameof(birthdate));
+            }
+
+            return birthdate.Value;
+        }
+
+        #endregion
     }
 }

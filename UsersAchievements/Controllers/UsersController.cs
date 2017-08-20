@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using UsersAchievements.Models;
 
@@ -7,25 +11,69 @@ namespace UsersAchievements.Controllers
 {
     public class UsersController : Controller
     {
+        private List<User> Users => UsersRepository.Instance.Users;
+
         // GET: Users
         public ActionResult Index()
         {
-            return View(UsersRepository.Instance.Users);
+            return View(Users);
         }
 
         // GET: Users/Remove
         public ActionResult Remove(Guid id)
         {
-            var users = UsersRepository.Instance.Users;
-            users.Remove(users.Single(u => u.Id == id));
+            Users.Remove(Users.Single(u => u.Id == id));
             return RedirectToAction("Index");
         }
 
         // GET: Users/Add
         public ActionResult Add(string name, DateTime? birthdate)
         {
-            UsersRepository.Instance.Users.Add(new User(name, birthdate));
+            Users.Add(new User(name, birthdate));
             return RedirectToAction("Index");
+        }
+
+        // GET: Users/Edit
+        public ActionResult Edit(Guid id)
+        {
+            return View(Users.Single(u => u.Id == id));
+        }
+
+        // GET: Users/SaveChanges
+        public ActionResult SaveChanges(Guid id, string name, DateTime? birthdate, HttpPostedFileBase photo, string deletePhoto)
+        {
+            var user = Users.Single(u => u.Id == id);
+            user.Name = name;
+            user.SetBirthdate(birthdate);
+            if (photo != null)
+            {
+                user.Photo = user.Id + ".png";
+                using (var fileStream =
+                    System.IO.File.Create("D:\\Projects\\UsersAchievements\\UsersAchievements\\Content\\Photos\\" + user.Id + ".png"))
+                {
+                    photo.InputStream.Seek(0, SeekOrigin.Begin);
+                    photo.InputStream.CopyTo(fileStream);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(deletePhoto) && deletePhoto == "on")
+            {
+                user.Photo = null;
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: Users/GetUsersList
+        public ActionResult GetUsersList()
+        {
+            var usersString = "";
+            foreach (var user in Users)
+            {
+                usersString += user + Environment.NewLine;
+            }
+
+            return File(Encoding.UTF8.GetBytes(usersString), "application/octet-stream", "users_list.txt");
         }
     }
 }

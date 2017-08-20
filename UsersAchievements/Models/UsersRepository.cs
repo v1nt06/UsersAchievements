@@ -16,7 +16,7 @@ namespace UsersAchievements.Models
                 if (_instance == null)
                 {
                     _instance = new UsersRepository();
-                    _instance.Users.Add(new User("Ivan Karimov", new DateTime(1989, 11, 16)));
+                    _instance.Users.Add(new User("Ivan Karimov", new DateTime(1989, 11, 16)) { Photo = "1.png" });
                     _instance.Users.Add(new User("Sofia Vasileva", new DateTime(1989, 03, 26)));
                 }
                 return _instance;
