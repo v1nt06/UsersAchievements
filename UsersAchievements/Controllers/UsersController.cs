@@ -39,7 +39,7 @@ namespace UsersAchievements.Controllers
             return View(Users.Single(u => u.Id == id));
         }
 
-        // GET: Users/SaveChanges
+        // POST: Users/SaveChanges
         public ActionResult SaveChanges(Guid id, string name, DateTime? birthdate, HttpPostedFileBase photo, string deletePhoto)
         {
             var user = Users.Single(u => u.Id == id);

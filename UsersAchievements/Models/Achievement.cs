@@ -16,6 +16,8 @@ namespace UsersAchievements.Models
 
         public string Description { get; set; }
 
+        public string Image { get; set; }
+
         public Achievement(string title)
         {
             Title = CheckTitle(title);

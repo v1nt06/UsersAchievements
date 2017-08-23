@@ -9,9 +9,20 @@
 <ul>
     @foreach (var achievement in Model)
     {
-        <li>@achievement, Description: @achievement.Description <a href="/Achievements/Remove?Id=@achievement.Id">[x]</a></li>
+        <li>
+            @if (string.IsNullOrEmpty(achievement.Image))
+            {
+                <img src="~/Content/Photos/default.png" alt="Achievement image"/>
+            }
+            else
+            {
+                <img src="~/Content/Photos/@achievement.Image" alt="Achievement image" style="max-height: 100px; max-width: 100px;" />
+            }
+
+            @achievement, Description: @achievement.Description <a href="/Achievements/Edit?Id=@achievement.Id">Edit</a> <a href="/Achievements/Remove?Id=@achievement.Id">Delete</a>
+        </li>
     }
 </ul>
 <form action="/Achievements/Add" method="get">
-    <input type="text" name="Title"/> <input type="text" name="Description"/> <button type="submit">Add achievement</button>
+    <input type="text" name="Title" /> <input type="text" name="Description" /> <button type="submit">Add achievement</button>
 </form>

@@ -3,7 +3,7 @@
 @model User
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit user";
 }
 
 <h2>User</h2>
@@ -18,7 +18,7 @@
         @: Photo: <br />
         <input type="image" src="~/Content/Photos/@Model.Photo" />
         <br />
-        <input type="checkbox" name="DeletePhoto" id="DeletePhoto"/> <label for="DeletePhoto">Delete photo</label><br />
+        <input type="checkbox" name="DeletePhoto" id="DeletePhoto" /> <label for="DeletePhoto">Delete photo</label><br />
     }
     else
     {
