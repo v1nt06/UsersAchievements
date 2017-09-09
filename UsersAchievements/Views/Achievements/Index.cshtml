@@ -1,4 +1,5 @@
-﻿@using UsersAchievements.Models
+﻿@using UsersAchievements.Helpers
+@using UsersAchievements.Models
 @model List<Achievement>
 
 @{
@@ -10,19 +11,18 @@
     @foreach (var achievement in Model)
     {
         <li>
-            @if (string.IsNullOrEmpty(achievement.Image))
-            {
-                <img src="~/Content/Photos/default.png" alt="Achievement image"/>
-            }
-            else
-            {
-                <img src="~/Content/Photos/@achievement.Image" alt="Achievement image" style="max-height: 100px; max-width: 100px;" />
-            }
+            @(string.IsNullOrEmpty(achievement.Image)
+                ? Html.Image("/Content/Photos/default.png", "Achievement image")
+                : Html.Image("/Content/Photos/" + achievement.Image, "Achievement image", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))
 
-            @achievement, Description: @achievement.Description <a href="/Achievements/Edit?Id=@achievement.Id">Edit</a> <a href="/Achievements/Remove?Id=@achievement.Id">Delete</a>
+            @achievement, Description: @achievement.Description
+            @Html.ActionLink("Edit", "Edit", "Achievements", new { achievement.Id }, null)
+            @Html.ActionLink("Delete", "Delete", "Achievements", new { achievement.Id }, null)
         </li>
     }
 </ul>
-<form action="/Achievements/Add" method="get">
-    <input type="text" name="Title" /> <input type="text" name="Description" /> <button type="submit">Add achievement</button>
-</form>
+@{ Html.BeginForm("Add", "Achievements", FormMethod.Get); }
+@Html.Label("Title", "Title") @Html.TextBox("Title", string.Empty)
+@Html.Label("Description", "Description") @Html.TextBox("Description", string.Empty)
+@Html.Submit("Add achievement")
+@{ Html.EndForm(); }

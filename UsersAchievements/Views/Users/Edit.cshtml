@@ -1,4 +1,5 @@
-﻿@using UsersAchievements.Models
+﻿@using UsersAchievements.Helpers
+@using UsersAchievements.Models
 
 @model User
 
@@ -10,22 +11,19 @@
 
 <h3>@Model</h3>
 
-@using (Html.BeginForm("SaveChanges", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@{ Html.BeginForm("SaveChanges", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }); }
+@Html.Hidden("Id", Model.Id)
+@if (!string.IsNullOrEmpty(Model.Photo))
 {
-    <input type="hidden" name="Id" value="@Model.Id" />
-    if (!string.IsNullOrEmpty(Model.Photo))
-    {
-        @: Photo: <br />
-        <input type="image" src="~/Content/Photos/@Model.Photo" />
-        <br />
-        <input type="checkbox" name="DeletePhoto" id="DeletePhoto" /> <label for="DeletePhoto">Delete photo</label><br />
-    }
-    else
-    {
-        <input type="file" accept="image/*" name="Photo" />
-    }
-    @:Name: <input type="text" name="Name" value="@Model" /><br />
-    @:Birthdate: <input type="date" name="Birthdate" value="@Model.Birthdate.ToString("yyyy-MM-dd")" /><br />
-    <button type="submit">Save changes</button><br />
+    @Html.Label("Photo", "Photo") @Html.Image("/Content/Photos/" + Model.Photo, "User photo")<br />
+    @Html.Label("DeletePhoto", "Delete photo") @Html.CheckBox("DeletePhoto", new { Id = "DeletePhoto" })<br />
 }
-<a href="/Users">Back to users list</a>
+else
+{
+    @Html.FilePicker("Photo", "image/*")
+}
+@Html.Label("Name", "Name") @Html.TextBox("Name", Model)<br />
+@Html.Label("Birthdate", "Birthdate") @Html.DatePicker("Birthdate", Model.Birthdate)<br />
+@Html.Submit("Save changes")
+@{ Html.EndForm(); }
+@Html.ActionLink("Back to users list", "Index")

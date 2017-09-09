@@ -18,8 +18,8 @@ namespace UsersAchievements.Controllers
             return View(Achievements);
         }
 
-        // GET: Achievements/Remove
-        public ActionResult Remove(Guid id)
+        // GET: Achievements/Delete
+        public ActionResult Delete(Guid id)
         {
             Achievements.Remove(Achievements.Single(a => a.Id == id));
             return RedirectToAction("Index");
@@ -39,7 +39,7 @@ namespace UsersAchievements.Controllers
         }
 
         //POST: Achievements/SaveChanges
-        public ActionResult SaveChanges(Guid id, string title, string description, HttpPostedFileBase image, string deleteImage)
+        public ActionResult SaveChanges(Guid id, string title, string description, HttpPostedFileBase image, bool? deleteImage)
         {
             var achievement = Achievements.Single(a => a.Id == id);
 
@@ -55,7 +55,7 @@ namespace UsersAchievements.Controllers
                 }
             }
 
-            if (!string.IsNullOrEmpty(deleteImage) && deleteImage == "on")
+            if (deleteImage != null && deleteImage.Value)
             {
                 achievement.Image = null;
             }

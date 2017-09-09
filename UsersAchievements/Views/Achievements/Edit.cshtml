@@ -1,8 +1,6 @@
-﻿@using UsersAchievements.Models
-
+﻿@using UsersAchievements.Helpers
+@using UsersAchievements.Models
 @model Achievement
-
-
 @{
     ViewBag.Title = "Edit achievement";
 }
@@ -11,24 +9,20 @@
 
 <h3>@Model</h3>
 
-@using (Html.BeginForm("SaveChanges", "Achievements", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@{ Html.BeginForm("SaveChanges", "Achievements", FormMethod.Post, new { enctype = "multipart/form-data" }); }
+
+@Html.Hidden("Id", Model.Id)
+@if (!string.IsNullOrEmpty(Model.Image))
 {
-    <input type="hidden" name="Id" value="@Model.Id" />
-    if (!string.IsNullOrEmpty(Model.Image))
-    {
-        @: Image: <br />
-        <input type="image" src="~/Content/Photos/@Model.Image" />
-        <br />
-        <input type="checkbox" name="DeleteImage" id="DeleteImage" />
-        <label for="DeleteImage">Delete image</label>
-        <br />
-    }
-    else
-    {
-        <input type="file" accept="image/*" name="Image" />
-    }
-    @: Title: <input name="Title" value="@Model" /><br />
-    @: Description: <input name="Description" value="@Model.Description" /><br />
-    <button type="submit">Save changes</button><br />
+    @Html.Label("Image", "Image") @Html.Image("/Content/Photos/" + Model.Image, "Achievement image")<br />
+    @Html.Label("DeleteImage", "Delete image") @Html.CheckBox("DeleteImage", new { Id = "DeleteImage" })<br />
 }
-<a href="/Achievements">Back to achievements list</a>
+else
+{
+    @Html.FilePicker("Image", "image/*")
+}
+@Html.Label("Title", "Title") @Html.TextBox("Title", Model)<br />
+@Html.Label("Description", "Description") @Html.TextBox("Description", Model.Description)<br />
+@Html.Submit("Save changes")<br />
+@{ Html.EndForm(); }
+@Html.ActionLink("Back to achievements list", "Index")

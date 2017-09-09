@@ -19,8 +19,8 @@ namespace UsersAchievements.Controllers
             return View(Users);
         }
 
-        // GET: Users/Remove
-        public ActionResult Remove(Guid id)
+        // GET: Users/Delete
+        public ActionResult Delete(Guid id)
         {
             Users.Remove(Users.Single(u => u.Id == id));
             return RedirectToAction("Index");
@@ -40,7 +40,7 @@ namespace UsersAchievements.Controllers
         }
 
         // POST: Users/SaveChanges
-        public ActionResult SaveChanges(Guid id, string name, DateTime? birthdate, HttpPostedFileBase photo, string deletePhoto)
+        public ActionResult SaveChanges(Guid id, string name, DateTime? birthdate, HttpPostedFileBase photo, bool? deletePhoto)
         {
             var user = Users.Single(u => u.Id == id);
             user.Name = name;
@@ -56,7 +56,7 @@ namespace UsersAchievements.Controllers
                 }
             }
 
-            if (!string.IsNullOrEmpty(deletePhoto) && deletePhoto == "on")
+            if (deletePhoto != null && deletePhoto.Value)
             {
                 user.Photo = null;
             }

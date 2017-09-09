@@ -1,4 +1,5 @@
-﻿@using UsersAchievements.Models
+﻿@using UsersAchievements.Helpers
+@using UsersAchievements.Models
 @model List<User>
 
 @{
@@ -10,20 +11,18 @@
     @foreach (var user in Model)
     {
         <li>
-            @if (string.IsNullOrEmpty(user.Photo))
-            {
-                <img src="~/Content/Photos/default.png" alt="User photo" />
-            }
-            else
-            {
-                <img src="~/Content/Photos/@user.Photo" alt="User photo" style="max-height: 100px; max-width: 100px;"/>
-            }
+            @(string.IsNullOrEmpty(user.Photo)
+                ? Html.Image("/Content/Photos/default.png", "User photo")
+                : Html.Image("/Content/Photos/" + user.Photo, "User photo", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))
 
-            @user, Birthdate: @user.Birthdate.ToString("d"), Age: @user.Age <a href="/Users/Edit?Id=@user.Id">Edit</a> <a href="/Users/Remove?Id=@user.Id">Delete</a>
+            @user, Birthdate: @user.Birthdate.ToString("d"), Age: @user.Age
+            @Html.ActionLink("Edit", "Edit", "Users", new { user.Id }, null)
+            @Html.ActionLink("Delete", "Delete", "Users", new { user.Id }, null)
         </li>
     }
 </ul>
-<form action="/Users/Add" method="get">
-    <input type="text" name="Name" /> <input type="date" name="Birthdate" /> <button type="submit">Add user</button>
-</form>
-<a href="/Users/GetUsersList">Get users list</a>
+@{ Html.BeginForm("Add", "Users", FormMethod.Get); }
+@Html.Label("Name", "Name") @Html.TextBox("Name", string.Empty)
+@Html.Label("Birthdate", "Birthdate") @Html.DatePicker("Birthdate")
+@Html.Submit("Add user");
+@{ Html.EndForm(); }
