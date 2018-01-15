@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UsersAchievements.Models;
+using IOFile = System.IO.File;
 
 namespace UsersAchievements.Controllers
 {
@@ -46,12 +47,10 @@ namespace UsersAchievements.Controllers
             if (image != null)
             {
                 achievement.Image = achievement.Id + ".png";
-                using (var fileStream =
-                    System.IO.File.Create("D:\\Projects\\UsersAchievements\\UsersAchievements\\Content\\Photos\\" +
-                                          achievement.Id + ".png"))
+                using (var stream = IOFile.Create(HttpContext.Server.MapPath($"~/Content/Photos/{achievement.Id}.png")))
                 {
                     image.InputStream.Seek(0, SeekOrigin.Begin);
-                    image.InputStream.CopyTo(fileStream);
+                    image.InputStream.CopyTo(stream);
                 }
             }
 

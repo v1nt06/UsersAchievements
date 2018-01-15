@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using UsersAchievements.Models;
+using IOFile = System.IO.File;
 
 namespace UsersAchievements.Controllers
 {
@@ -48,11 +49,10 @@ namespace UsersAchievements.Controllers
             if (photo != null)
             {
                 user.Photo = user.Id + ".png";
-                using (var fileStream =
-                    System.IO.File.Create("D:\\Projects\\UsersAchievements\\UsersAchievements\\Content\\Photos\\" + user.Id + ".png"))
+                using (var stream = IOFile.Create(HttpContext.Server.MapPath($"~/Content/Photos/{user.Id}.png")))
                 {
                     photo.InputStream.Seek(0, SeekOrigin.Begin);
-                    photo.InputStream.CopyTo(fileStream);
+                    photo.InputStream.CopyTo(stream);
                 }
             }
 
