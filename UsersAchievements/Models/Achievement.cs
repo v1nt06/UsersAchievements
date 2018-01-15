@@ -6,7 +6,7 @@ namespace UsersAchievements.Models
     {
         private string _title;
 
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
         public string Title
         {

@@ -12,7 +12,7 @@ namespace UsersAchievements.Models
 
         #region Properties
 
-        public Guid Id { get; }
+        public Guid Id { get; set; }
 
         public string Name
         {
