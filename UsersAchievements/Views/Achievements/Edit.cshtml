@@ -17,14 +17,40 @@
 @if (!string.IsNullOrEmpty(Model.Image))
 {
     @Html.Label("Image", "Image") @Html.Image("/Content/Photos/" + Model.Image, "Achievement image")<br />
-    @Html.Label("DeleteImage", "Delete image") @Html.CheckBox("DeleteImage", new { Id = "DeleteImage" })<br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="checkbox" name="DeleteImage" />
+            </div>
+        </div>
+        <div class="input-group-append">
+            <span class="input-group-text">Delete image</span>
+        </div>
+    </div>
 }
 else
 {
-    @Html.FilePicker("Image", "image/*")
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Image</span>
+        </div>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="Image" accept="image/*" id="Image">
+            <label class="custom-file-label" for="Image">Choose file</label>
+        </div>
+    </div>
 }
-@Html.Label("Title", "Title") @Html.TextBox("Title", Model)<br />
-@Html.Label("Description", "Description") @Html.TextBox("Description", Model.Description)<br />
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Title</span>
+    </div>
+    <input type="text" class="form-control" name="Title" value="@Model.Title" placeholder="Enter title" />
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Description</span>
+    </div>
+    <input type="text" class="form-control" name="Description" value="@Model.Description" placeholder="Enter description" />
+</div>
 <button type="submit" class="btn btn-primary">Save changes</button>
 @{ Html.EndForm(); }
-@Html.ActionLink("Back to achievements list", "Index")

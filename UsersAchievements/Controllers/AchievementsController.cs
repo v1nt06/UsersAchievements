@@ -40,7 +40,7 @@ namespace UsersAchievements.Controllers
         }
 
         //POST: Achievements/SaveChanges
-        public ActionResult SaveChanges(Guid id, string title, string description, HttpPostedFileBase image, bool? deleteImage)
+        public ActionResult SaveChanges(Guid id, string title, string description, HttpPostedFileBase image, string deleteImage)
         {
             var achievement = Achievements.Single(a => a.Id == id);
 
@@ -54,7 +54,7 @@ namespace UsersAchievements.Controllers
                 }
             }
 
-            if (deleteImage != null && deleteImage.Value)
+            if (!string.IsNullOrEmpty(deleteImage) && deleteImage == "on")
             {
                 achievement.Image = null;
             }

@@ -41,7 +41,7 @@ namespace UsersAchievements.Controllers
         }
 
         // POST: Users/SaveChanges
-        public ActionResult SaveChanges(Guid id, string name, DateTime? birthdate, HttpPostedFileBase photo, bool? deletePhoto)
+        public ActionResult SaveChanges(Guid id, string name, DateTime? birthdate, HttpPostedFileBase photo, string deletePhoto)
         {
             var user = Users.Single(u => u.Id == id);
             user.Name = name;
@@ -56,7 +56,7 @@ namespace UsersAchievements.Controllers
                 }
             }
 
-            if (deletePhoto != null && deletePhoto.Value)
+            if (!string.IsNullOrEmpty(deletePhoto) && deletePhoto == "on")
             {
                 user.Photo = null;
             }

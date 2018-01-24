@@ -20,7 +20,18 @@
     }
 </ul>
 @{ Html.BeginForm("Add", "Achievements", FormMethod.Get); }
-@Html.Label("Title", "Title") @Html.TextBox("Title", string.Empty)
-@Html.Label("Description", "Description") @Html.TextBox("Description", string.Empty)
+<h3>Add new achievement</h3>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Title</span>
+    </div>
+    <input type="text" class="form-control" placeholder="Enter title" name="Title" />
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Description</span>
+    </div>
+    <input type="text" class="form-control" placeholder="Enter description" name="Description" />
+</div>
 <button type="submit" class="btn btn-primary">Add Achievement</button>
 @{ Html.EndForm(); }

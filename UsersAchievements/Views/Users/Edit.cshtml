@@ -17,14 +17,40 @@
 @if (!string.IsNullOrEmpty(Model.Photo))
 {
     @Html.Label("Photo", "Photo") @Html.Image("/Content/Photos/" + Model.Photo, "User photo")<br />
-    @Html.Label("DeletePhoto", "Delete photo") @Html.CheckBox("DeletePhoto", new { Id = "DeletePhoto" })<br />
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="checkbox" name="DeletePhoto" />
+            </div>
+        </div>
+        <div class="input-group-append">
+            <span class="input-group-text">Delete photo</span>
+        </div>
+    </div>
 }
 else
 {
-    @Html.FilePicker("Photo", "image/*")
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Photo</span>
+        </div>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="Photo" accept="image/*" id="Photo">
+            <label class="custom-file-label" for="Photo">Choose file</label>
+        </div>
+    </div>
 }
-@Html.Label("Name", "Name") @Html.TextBox("Name", Model)<br />
-@Html.Label("Birthdate", "Birthdate") @Html.DatePicker("Birthdate", Model.Birthdate)<br />
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Full name</span>
+    </div>
+    <input type="text" class="form-control" name="Name" value="@Model.Name" placeholder="Enter full name" />
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Birthdate</span>
+    </div>
+    <input type="date" class="form-control" name="Birthdate" value="@Model.Birthdate.ToString("yyyy-MM-dd")" />
+</div>
 <button type="submit" class="btn btn-primary">Save changes</button>
 @{ Html.EndForm(); }
-@Html.ActionLink("Back to users list", "Index")
