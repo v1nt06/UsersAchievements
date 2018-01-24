@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section navbar
+{
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">Users Achievements</a>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="/">Home</a>
+            <a class="nav-item nav-link" href="/Users">Users</a>
+            <a class="nav-item nav-link active" href="/Achievements">Achievements</a>
+        </div>
+    </nav>
+}
+
+@section breadcrumbs
+{
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Achievements">Achievements</a></li>
+    @RenderSection("breadcrumbs", false)
+}
+
+<h2>Achievements</h2>
+
+@RenderBody()

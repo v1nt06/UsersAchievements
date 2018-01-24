@@ -1,13 +1,14 @@
-﻿@using UsersAchievements.Helpers
-@using UsersAchievements.Models
-
-@model User
+﻿@model User
 
 @{
+    Layout = "~/Views/Users/_UsersLayout.cshtml";
     ViewBag.Title = "Edit user";
 }
 
-<h2>User</h2>
+@section breadcrumbs
+{
+    <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+}
 
 <h3>@Model</h3>
 

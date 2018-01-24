@@ -1,12 +1,10 @@
-﻿@using UsersAchievements.Helpers
-@using UsersAchievements.Models
-@model List<User>
+﻿@model List<User>
 
 @{
+    Layout = "~/Views/Users/_UsersLayout.cshtml";
     ViewBag.Title = "Users";
 }
 
-<h2>Users</h2>
 <ul>
     @foreach (var user in Model)
     {

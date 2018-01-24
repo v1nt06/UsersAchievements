@@ -3,6 +3,23 @@
     ViewBag.Title = "Home";
 }
 
+@section navbar
+{
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">Users Achievements</a>
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/">Home</a>
+            <a class="nav-item nav-link" href="/Users">Users</a>
+            <a class="nav-item nav-link" href="/Achievements">Achievements</a>
+        </div>
+    </nav>
+}
+
+@section breadcrumbs
+{
+    <li class="breadcrumb-item active" aria-current="page">Home</li>
+}
+
 <h2>Users achievements</h2>
 
 <ul>

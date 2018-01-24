@@ -1,11 +1,13 @@
-﻿@using UsersAchievements.Helpers
-@using UsersAchievements.Models
-@model Achievement
+﻿@model Achievement
 @{
+    Layout = "~/Views/Achievements/_AchievementsLayout.cshtml";
     ViewBag.Title = "Edit achievement";
 }
 
-<h2>Achievement</h2>
+@section breadcrumbs
+{
+    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+}
 
 <h3>@Model</h3>
 
