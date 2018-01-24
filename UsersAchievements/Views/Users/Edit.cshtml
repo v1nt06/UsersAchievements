@@ -25,6 +25,6 @@ else
 }
 @Html.Label("Name", "Name") @Html.TextBox("Name", Model)<br />
 @Html.Label("Birthdate", "Birthdate") @Html.DatePicker("Birthdate", Model.Birthdate)<br />
-@Html.Submit("Save changes")
+<button type="submit" class="btn btn-primary">Save changes</button>
 @{ Html.EndForm(); }
 @Html.ActionLink("Back to users list", "Index")

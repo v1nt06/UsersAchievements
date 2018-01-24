@@ -10,17 +10,17 @@
     {
         <li>
             @(string.IsNullOrEmpty(user.Photo)
-                ? Html.Image("/Content/Photos/default.png", "User photo")
-                : Html.Image("/Content/Photos/" + user.Photo, "User photo", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))
+                        ? Html.Image("/Content/Photos/default.png", "User photo")
+                        : Html.Image("/Content/Photos/" + user.Photo, "User photo", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))
 
             @user, Birthdate: @user.Birthdate.ToString("d"), Age: @user.Age
-            @Html.ActionLink("Edit", "Edit", "Users", new { user.Id }, null)
-            @Html.ActionLink("Delete", "Delete", "Users", new { user.Id }, null)
+            <a href="/Users/Edit/@user.Id" class="btn btn-primary" role="button">Edit</a>
+            <a href="/Users/Delete/@user.Id" class="btn btn-danger">Delete</a>
         </li>
     }
 </ul>
 @{ Html.BeginForm("Add", "Users", FormMethod.Get); }
 @Html.Label("Name", "Name") @Html.TextBox("Name", string.Empty)
 @Html.Label("Birthdate", "Birthdate") @Html.DatePicker("Birthdate")
-@Html.Submit("Add user")
+<button type="submit" class="btn btn-primary">Add User</button>
 @{ Html.EndForm(); }

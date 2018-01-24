@@ -10,17 +10,17 @@
     {
         <li>
             @(string.IsNullOrEmpty(achievement.Image)
-                ? Html.Image("/Content/Photos/default.png", "Achievement image")
-                : Html.Image("/Content/Photos/" + achievement.Image, "Achievement image", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))
+                            ? Html.Image("/Content/Photos/default.png", "Achievement image")
+                            : Html.Image("/Content/Photos/" + achievement.Image, "Achievement image", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))
 
             @achievement, Description: @achievement.Description
-            @Html.ActionLink("Edit", "Edit", "Achievements", new { achievement.Id }, null)
-            @Html.ActionLink("Delete", "Delete", "Achievements", new { achievement.Id }, null)
+            <a href="/Achievements/Edit/@achievement.Id" class="btn btn-primary" role="button">Edit</a>
+            <a href="/Achievements/Delete/@achievement.Id" class="btn btn-danger" role="button">Delete</a>
         </li>
     }
 </ul>
 @{ Html.BeginForm("Add", "Achievements", FormMethod.Get); }
 @Html.Label("Title", "Title") @Html.TextBox("Title", string.Empty)
 @Html.Label("Description", "Description") @Html.TextBox("Description", string.Empty)
-@Html.Submit("Add achievement")
+<button type="submit" class="btn btn-primary">Add Achievement</button>
 @{ Html.EndForm(); }

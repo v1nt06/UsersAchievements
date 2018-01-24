@@ -25,6 +25,6 @@ else
 }
 @Html.Label("Title", "Title") @Html.TextBox("Title", Model)<br />
 @Html.Label("Description", "Description") @Html.TextBox("Description", Model.Description)<br />
-@Html.Submit("Save changes")<br />
+<button type="submit" class="btn btn-primary">Save changes</button>
 @{ Html.EndForm(); }
 @Html.ActionLink("Back to achievements list", "Index")
