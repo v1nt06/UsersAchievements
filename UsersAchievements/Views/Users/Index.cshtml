@@ -5,20 +5,27 @@
     ViewBag.Title = "Users";
 }
 
-<ul>
+<table>
+    <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Birth date</th>
+        <th>Age</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
     @foreach (var user in Model)
     {
-        <li>
-            @(string.IsNullOrEmpty(user.Photo)
-                                ? Html.Image("/Content/Photos/default.png", "User photo")
-                                : Html.Image("/Content/Photos/" + user.Photo, "User photo", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))
-
-            @user, Birthdate: @user.Birthdate.ToString("d"), Age: @user.Age
-            <a href="/Users/Edit/@user.Id" class="btn btn-primary" role="button">Edit</a>
-            <a href="/Users/Delete/@user.Id" class="btn btn-danger">Delete</a>
-        </li>
+        <tr>
+            <td>@(string.IsNullOrEmpty(user.Photo) ? Html.Image("/Content/Photos/default.png", "User photo") : Html.Image("/Content/Photos/" + user.Photo, "User photo", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))</td>
+            <td>@user</td>
+            <td>@user.Birthdate.ToString("d")</td>
+            <td>@user.Age</td>
+            <td><a href="/Users/Edit/@user.Id" class="btn btn-primary" role="button">Edit</a></td>
+            <td><a href="/Users/Delete/@user.Id" class="btn btn-danger">Delete</a></td>
+        </tr>
     }
-</ul>
+</table>
 @{ Html.BeginForm("Add", "Users", FormMethod.Get); }
 <h3>Add new user</h3>
 <div class="input-group mb-3">
