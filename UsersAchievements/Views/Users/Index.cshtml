@@ -9,7 +9,7 @@
     <tr>
         <th>Photo</th>
         <th>Name</th>
-        <th>Birth date</th>
+        <th>Birthdate</th>
         <th>Age</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -26,19 +26,4 @@
         </tr>
     }
 </table>
-@{ Html.BeginForm("Add", "Users", FormMethod.Get); }
-<h3>Add new user</h3>
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Full name</span>
-    </div>
-    <input type="text" class="form-control" placeholder="Enter full name" name="Name" />
-</div>
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Birthdate</span>
-    </div>
-    <input type="date" class="form-control" name="Birthdate" />
-</div>
-<button type="submit" class="btn btn-primary">Add User</button>
-@{ Html.EndForm(); }
+<a href="@Url.Action("Create")">Create user</a>

@@ -22,6 +22,8 @@ namespace UsersAchievements
 
             var scriptBundle = new ScriptBundle("~/Scripts/js");
             scriptBundle.Include("~/Scripts/jquery-{version}.js");
+            scriptBundle.Include("~/Scripts/jquery.validate.js");
+            scriptBundle.Include("~/Scripts/jquery.validate.unobtrusive.js");
             scriptBundle.Include("~/Scripts/bootstrap.js");
 
             BundleTable.Bundles.Add(styleBundle);

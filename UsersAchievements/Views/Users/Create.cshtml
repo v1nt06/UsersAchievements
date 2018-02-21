@@ -1,0 +1,31 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "Create user";
+    Layout = "~/Views/Users/_UsersLayout.cshtml";
+}
+
+@section breadcrumbs
+{
+    <li class="breadcrumb-item active"><a href="/Users/Create">Create user</a></li>
+}
+
+<h3>@ViewBag.Title</h3>
+@{ Html.BeginForm("Create"); }
+@Html.ValidationMessageFor(m => m.Name)
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Full name</span>
+    </div>
+    @Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter name" } })
+</div>
+@Html.ValidationMessageFor(m => m.Birthdate)
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Birthdate</span>
+    </div>
+    @Html.EditorFor(m => m.Birthdate, new { htmlAttributes = new { @class = "form-control" } })
+</div>
+<button type="submit" class="btn btn-primary">Add User</button>
+@{ Html.EndForm(); }
+<a href="@Url.Action("Index")">Back to users list</a>

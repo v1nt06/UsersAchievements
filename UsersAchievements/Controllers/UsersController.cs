@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using UsersAchievements.Helpers;
 using UsersAchievements.Models;
 using IOFile = System.IO.File;
 
@@ -27,17 +28,43 @@ namespace UsersAchievements.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Users/Add
-        public ActionResult Add(string name, DateTime? birthdate)
+
+        // GET: Users/Create
+        public ActionResult Create()
         {
-            Users.Add(new User(name, birthdate));
-            return RedirectToAction("Index");
+            return View();
         }
 
         // GET: Users/Edit
         public ActionResult Edit(Guid id)
         {
             return View(Users.Single(u => u.Id == id));
+        }
+
+        // GET: Users/GetUsersList
+        public ActionResult GetUsersList()
+        {
+            var usersString = "";
+            foreach (var user in Users)
+            {
+                usersString += user + Environment.NewLine;
+            }
+
+            return File(Encoding.UTF8.GetBytes(usersString), "application/octet-stream", "users_list.txt");
+        }
+
+        // POST: Users/Create
+        [HttpPost]
+        public ActionResult Create([ModelBinder(typeof(UserModelBinder))]User model)
+        {
+            ModelState.Clear();
+            TryValidateModel(model);
+            if (ModelState.IsValid)
+            {
+                Users.Add(model);
+                return RedirectToAction("Index");
+            }
+            return View("Create");
         }
 
         // POST: Users/SaveChanges
@@ -62,18 +89,6 @@ namespace UsersAchievements.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        // GET: Users/GetUsersList
-        public ActionResult GetUsersList()
-        {
-            var usersString = "";
-            foreach (var user in Users)
-            {
-                usersString += user + Environment.NewLine;
-            }
-
-            return File(Encoding.UTF8.GetBytes(usersString), "application/octet-stream", "users_list.txt");
         }
     }
 }

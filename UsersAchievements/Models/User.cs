@@ -1,34 +1,27 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using UsersAchievements.Helpers;
 
 namespace UsersAchievements.Models
 {
     public sealed class User
     {
-        #region Fields
-
-        private string _name;
-
-        #endregion
-
-        #region Properties
-
         public Guid Id { get; set; }
 
-        public string Name
-        {
-            get => _name;
-            set => _name = CheckName(value);
-        }
+        [Required]
+        [StringLength(50, MinimumLength = 2)]
+        public string Name { get; set; }
 
-        public DateTime Birthdate { get; private set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [Birthdate]
+        public DateTime Birthdate { get; set; }
 
         public int Age => CalculateAge();
 
         public string Photo { get; set; }
 
-        #endregion
-
-        #region Methods
+        public User() { }
 
         public User(string name, DateTime? birthdate)
         {
@@ -49,18 +42,13 @@ namespace UsersAchievements.Models
 
         private int CalculateAge()
         {
-            var zeroTime = new DateTime(1, 1, 1);
-            return (zeroTime + (DateTime.Now - Birthdate)).Year - 1;
-        }
-
-        private string CheckName(string name)
-        {
-            if (string.IsNullOrEmpty(name))
+            if (Birthdate >= DateTime.Today)
             {
-                throw new ArgumentException("Name shouldn't be empty", nameof(name));
+                return 0;
             }
 
-            return name;
+            var zeroTime = new DateTime(1, 1, 1);
+            return (zeroTime + (DateTime.Now - Birthdate)).Year - 1;
         }
 
         private DateTime CheckBirthdate(DateTime? birthdate)
@@ -72,7 +60,5 @@ namespace UsersAchievements.Models
 
             return birthdate.Value;
         }
-
-        #endregion
     }
 }
