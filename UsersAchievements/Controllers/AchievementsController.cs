@@ -26,17 +26,28 @@ namespace UsersAchievements.Controllers
             return RedirectToAction("Index");
         }
 
-        //GET: Achievements/Add
-        public ActionResult Add(string title, string description)
+        //GET: Achievements/Create
+        public ActionResult Create()
         {
-            Achievements.Add(new Achievement(title) { Description = description });
-            return RedirectToAction("Index");
+            return View();
         }
 
         //GET: Achievements/Edit
         public ActionResult Edit(Guid id)
         {
             return View(Achievements.Single(a => a.Id == id));
+        }
+
+        //POST: Achievements/Create
+        [HttpPost]
+        public ActionResult Create(Achievement model)
+        {
+            if (ModelState.IsValid)
+            {
+                Achievements.Add(model);
+                return RedirectToAction("Index");
+            }
+            return View("Create");
         }
 
         //POST: Achievements/SaveChanges

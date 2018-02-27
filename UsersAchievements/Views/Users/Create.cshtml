@@ -7,7 +7,7 @@
 
 @section breadcrumbs
 {
-    <li class="breadcrumb-item active"><a href="/Users/Create">Create user</a></li>
+    <li class="breadcrumb-item active"><a href="@Url.Action("Create")">Create user</a></li>
 }
 
 <h3>@ViewBag.Title</h3>
@@ -26,6 +26,6 @@
     </div>
     @Html.EditorFor(m => m.Birthdate, new { htmlAttributes = new { @class = "form-control" } })
 </div>
-<button type="submit" class="btn btn-primary">Add User</button>
+<button type="submit" class="btn btn-primary">Create</button>
 @{ Html.EndForm(); }
 <a href="@Url.Action("Index")">Back to users list</a>

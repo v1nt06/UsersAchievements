@@ -1,0 +1,31 @@
+﻿@model Achievement
+
+@{
+    ViewBag.Title = "Create achievement";
+    Layout = "_AchievementsLayout.cshtml";
+}
+
+@section breadcrumbs
+{
+    <li class="breadcrumb-item active"><a href="@Url.Action("Create")">Create achievement</a></li>
+}
+
+<h3>@ViewBag.Title</h3>
+@{ Html.BeginForm("Create"); }
+@Html.ValidationMessageFor(m => m.Title)
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Title</span>
+    </div>
+    @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter title" } })
+</div>
+@Html.ValidationMessageFor(m => m.Description)
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Description</span>
+    </div>
+    @Html.EditorFor(m => m.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter description" } })
+</div>
+<button type="submit" class="btn btn-primary">Create</button>
+@{ Html.EndForm(); }
+<a href="@Url.Action("Index")">Back to achievements list</a>

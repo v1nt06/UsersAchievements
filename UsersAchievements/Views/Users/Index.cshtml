@@ -21,8 +21,8 @@
             <td>@user</td>
             <td>@user.Birthdate.ToString("d")</td>
             <td>@user.Age</td>
-            <td><a href="/Users/Edit/@user.Id" class="btn btn-primary" role="button">Edit</a></td>
-            <td><a href="/Users/Delete/@user.Id" class="btn btn-danger">Delete</a></td>
+            <td><a href="@Url.Action("Edit", new { id = user.Id })" class="btn btn-primary" role="button">Edit</a></td>
+            <td><a href="@Url.Action("Delete", new { id = user.Id})" class="btn btn-danger">Delete</a></td>
         </tr>
     }
 </table>

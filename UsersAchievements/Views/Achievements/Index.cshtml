@@ -15,28 +15,13 @@
     </tr>
     @foreach (var achievement in Model)
     {
-        <tr>
-            <td>@(string.IsNullOrEmpty(achievement.Image) ? Html.Image("/Content/Photos/default.png", "Achievement image") : Html.Image("/Content/Photos/" + achievement.Image, "Achievement image", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))</td>
-            <td>@achievement</td>
-            <td>@achievement.Description</td>
-            <td><a href="/Achievements/Edit/@achievement.Id" class="btn btn-primary" role="button">Edit</a></td>
-            <td><a href="/Achievements/Delete/@achievement.Id" class="btn btn-danger" role="button">Delete</a></td>
-        </tr>
+    <tr>
+        <td>@(string.IsNullOrEmpty(achievement.Image) ? Html.Image("/Content/Photos/default.png", "Achievement image") : Html.Image("/Content/Photos/" + achievement.Image, "Achievement image", new Dictionary<string, object> { { "style", "max-height: 100px; max-width: 100px;" } }))</td>
+        <td>@achievement</td>
+        <td>@achievement.Description</td>
+        <td><a href="@Url.Action("Edit", new { id = achievement.Id })" class="btn btn-primary" role="button">Edit</a></td>
+        <td><a href="@Url.Action("Delete", new { id = achievement.Id })" class="btn btn-danger" role="button">Delete</a></td>
+    </tr>
     }
 </table>
-@{ Html.BeginForm("Add", "Achievements", FormMethod.Get); }
-<h3>Add new achievement</h3>
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Title</span>
-    </div>
-    <input type="text" class="form-control" placeholder="Enter title" name="Title" />
-</div>
-<div class="input-group mb-3">
-    <div class="input-group-prepend">
-        <span class="input-group-text">Description</span>
-    </div>
-    <input type="text" class="form-control" placeholder="Enter description" name="Description" />
-</div>
-<button type="submit" class="btn btn-primary">Add Achievement</button>
-@{ Html.EndForm(); }
+<a href="@Url.Action("Create")">Create achievement</a>

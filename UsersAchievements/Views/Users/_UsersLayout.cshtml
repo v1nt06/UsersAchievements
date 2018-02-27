@@ -8,8 +8,8 @@
         <a class="navbar-brand" href="/">Users Achievements</a>
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/">Home</a>
-            <a class="nav-item nav-link active" href="/Users">Users</a>
-            <a class="nav-item nav-link" href="/Achievements">Achievements</a>
+            <a class="nav-item nav-link active" href="@Url.Action("Index")">Users</a>
+            <a class="nav-item nav-link" href="@Url.Action("Index", "Achievements")">Achievements</a>
         </div>
     </nav>
 }
@@ -17,7 +17,7 @@
 @section breadcrumbs
 {
     <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item"><a href="/Users">Users</a></li>
+    <li class="breadcrumb-item"><a href="@Url.Action("Index")">Users</a></li>
     @RenderSection("breadcrumbs", false)
 }
 
